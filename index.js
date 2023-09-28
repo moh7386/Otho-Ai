@@ -27,14 +27,6 @@ const hexColors = ['#3456ff', '#f80', '#f00808', '#fefe62', '#ff00ff', '#00ffff'
 const randomIndex = Math.floor(Math.random() * hexColors.length)
 return hexColors[randomIndex]}
 
-function getRandomGradient() {  
-const useRandomHexColors = Math.random() < 0.5; // 50% colors
-if (useRandomHexColors) {
-return [getRandomHexColor(), getRandomHexColor()]
-} else {
-return [getRandomColor(), getRandomColor()];
-}}
-
 const options = {
  font: 'block',
  align: 'center',
@@ -45,6 +37,14 @@ const options = {
  space: true,
  maxLength: '0',
 }
+
+function getRandomGradient() {  
+const useRandomHexColors = Math.random() < 0.5; // 50% colors
+if (useRandomHexColors) {
+return [getRandomHexColor(), getRandomHexColor()]
+} else {
+return [getRandomColor(), getRandomColor()];
+}}
 cfonts.say('gatabot\nlite\nmd'.trim(), options)
 
 } catch (err) {
@@ -54,7 +54,7 @@ say('GataBot\nLite\nMD', {
  gradient: ['red', 'magenta']
 })}
 
-say(`Desarrollado por @gata_dios`.trim(), {
+say(`Project Author:\nGataNina-Li (@gata_dios)\n\nDevelopers:\nelrebelde21 (Mario)\nAzamiJs (Azami)\nDIEGO-OFC (Diego)`.trim(), {
  font: 'console',
  align: 'center',
  colors: ['candy']
@@ -72,9 +72,11 @@ let args = [join(__dirname, file), ...process.argv.slice(2)]
   
 setupMaster({
 exec: args[0],
-args: args.slice(1), })
+args: args.slice(1),
+})
 let p = fork()
 p.on('message', data => {
+//console.log('ACTIVIDAD ACTULIZADA:', data)
 switch (data) {
 case 'reset':
 p.process.kill()
@@ -83,24 +85,23 @@ start.apply(this, arguments)
 break
 case 'uptime':
 p.send(process.uptime())
-break }})
+break
+}})
 p.on('exit', (_, code) => {
 isRunning = false
-console.error('⚠️ Error Inesperado ⚠️', code)
-  
-p.process.kill()
-isRunning = false
-start.apply(this, arguments)
-  
-if (process.env.pm_id) {
-process.exit(1)
-} else {
-process.exit()
-}
+console.error('⚠️ ERROR ⚠️', code)
+if (code === 0) return
+watchFile(args[0], () => {
+unwatchFile(args[0])
+start(file)
+})
 })
 let opts = new Object(yargs(process.argv.slice(2)).exitProcess(false).parse())
 if (!opts['test'])
 if (!rl.listenerCount()) rl.on('line', line => {
 p.emit('message', line.trim())
-})}
+})
+//console.log(p)
+}
+
 start('main.js')

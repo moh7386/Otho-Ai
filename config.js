@@ -1,26 +1,21 @@
-import { watchFile, unwatchFile } from 'fs'  
+import { watchFile, unwatchFile } from 'fs' 
 import chalk from 'chalk'
 import { fileURLToPath } from 'url'
 import fs from 'fs'
 import cheerio from 'cheerio'
 import fetch from 'node-fetch'
 import axios from 'axios'
-import moment from 'moment-timezone' 
-import { en, es, id, ar, pt } from './lib/idiomas/total-idiomas.js' 
+import moment from 'moment-timezone'
+import { en, es, id, ar, pt } from './lib/idiomas/total-idiomas.js'
 
-// ES ➜ Agregué primero el número del Bot como prioridad  
+// ES ➜ Agregué primero el número del Bot como prioridad
 // ES ➜ Si desea recibir reportes debe de usar los tres parámetros (Número, nombre y true)
 // EN ➜ Add the Bot number as priority first
 // EN ➜ If you want to receive reports you must use the three parameters (Number, name and true)
 global.owner = [
-['593993684821', '𝙂𝙖𝙩𝙖𝘽𝙤𝙩𝙇𝙞𝙩𝙚-𝙈𝘿 🌻🐈', true], 
-['5492266466080', '𝙊𝙬𝙣𝙚𝙧 (1) 💻', true],  
-['972529277026', '𝙊𝙬𝙣𝙚𝙧 (2) 💻', true],  
-['59894808483', '𝘾𝙪𝙨𝙩𝙤𝙢𝙚𝙧 𝙎𝙪𝙥𝙥𝙤𝙧𝙩 🥏', true],
-['5218442286089', 'DIEGO-OFC | COLABO', true],
-['5218442114446', 'SKID | Diego es gay', true],
-['584125778026'],
-['593968585383'], ['59894808483'], ['5217441745001'], ['5492266613038']]
+['573026191480', '𝙂𝙖𝙩𝙖𝘽𝙤𝙩𝙇𝙞𝙩𝙚-𝙈𝘿 🌻🐈', true],
+['595975740803', '𝙊𝙬𝙣𝙚𝙧 💖🐈', true], 
+['593968585383'], ['5492266466080'], ['5217294888993'], ['5492266613038'], ['51906662557']]
 
 global.mods = [] 
 global.prems = []
@@ -30,6 +25,10 @@ global.prems = []
 //  es = Español      id = Bahasa Indonesia       ar = عرب
 //  en = English      pt = Português 
 global.lenguajeGB = es  //<-- Predeterminado en idioma Español 
+
+// confirmación en el ajuste de idioma y owner en la consola
+global.languageLen = ""
+global.registerNumber = ""
 
 // ES ➜ Consigue Apikey en https://platform.openai.com/account/api-keys
 global.openai_key = 'sk-0'
@@ -99,8 +98,8 @@ global.desc = '' //agrega una descripción corta
 global.desc2 = '' //agrega una descripción larga (Solo se aplicará si su whasapp no tiene descripción)
 global.country = '' //agrega tú país ejemplo: 🇪🇨
 
-global.vs = '1.0.2'
-global.vsJB = '4.0'
+global.vs = '1.3.2-(beta)'
+global.vsJB = '4.5 (Beta)'
 
 global.gt = '𝙂𝙖𝙩𝙖𝘽𝙤𝙩𝙇𝙞𝙩𝙚-𝙈𝘿'
 global.yt = 'https://youtube.com/@gatadios'
@@ -110,16 +109,18 @@ global.md = 'https://github.com/GataNina-Li/GataBotLite-MD'
 global.fb = 'https://www.facebook.com/groups/872989990425789/'
 
 global.nna = 'https://chat.whatsapp.com/DVhu9S9Zr7cBFFl26N61U3' //UPDATE GATABOT
-global.nna2 = 'https://chat.whatsapp.com/IXZ0aBryB1cHjNxe0VIm76' //Help
-global.nn = 'https://chat.whatsapp.com/HixWhYHaIBsHtdVVn5GWa7' //Grupo 1
-global.nnn = 'https://chat.whatsapp.com/Ldbick7NHg6KIYM08ePEmM' //Grupo 2
-global.nnnt = 'https://chat.whatsapp.com/DkSiArB76fQ2gasaXbsTpB' //Grupo 3
-global.nnntt = 'https://chat.whatsapp.com/KarvKzAKHMcJAtStYqTY5y' //Grupo 4
-global.nnnttt = 'https://chat.whatsapp.com/HpFEE22gczpHwDoRIAACC6' //Grupo 5
-global.nnnttt1 = 'https://chat.whatsapp.com/IyQcDZqfTkLG46ph8w1AHy' //Grupo 6 COL
-global.nnnttt2 = 'https://chat.whatsapp.com/EjiaKJWvzaiAmvktpScgEc' //Grupo 7 COL
-global.nnnttt3 = 'https://chat.whatsapp.com/KLpYFsitkgzJ15YQxZrBqO' //Grupo 8 COL
-global.nnnttt4 = 'https://chat.whatsapp.com/J8HOf2T3QYeKu3UN9UBkT6' //Grupo 9 COL
+global.nn2 = 'https://chat.whatsapp.com/HLXJUIznsbHJ3LF6pTgmh6' //UPDATE 2
+global.nna2 = 'https://chat.whatsapp.com/JRFOdyjNqhwEJcDQoBCHzL' //Help
+global.nn = 'https://chat.whatsapp.com/Ii0hagX0idw4C7Gxwts54x' //Grupo 1
+global.nnn = 'https://chat.whatsapp.com/LGHW0ZwLgpeH7Nsn4vlrWi' //Grupo 2
+global.nnnt = 'https://chat.whatsapp.com/Jvhbjxueer0GSdOw75ZtWR' //Grupo 3
+global.nnntt = 'https://chat.whatsapp.com/Gysm0PMJ4zg7ts0E9t91Hz' //Grupo 4
+global.nnnttt = 'https://chat.whatsapp.com/IZeaMQos8pxEhlyVI6yZaa' //Grupo 5
+global.nnnttt1 = 'https://chat.whatsapp.com/B8lrwGzSUbf7zlZHDAwCQ8' //Grupo 6 COL
+global.nnnttt2 = 'https://chat.whatsapp.com/IlyJBy1fxcw2qAHLSC5YLa' //Grupo 7 COL
+global.nnnttt3 = 'https://chat.whatsapp.com/LVocHnQjrci6dM4TZdmhBH' //Grupo 8 COL
+global.nnnttt4 = 'https://chat.whatsapp.com/KLpYFsitkgzJ15YQxZrBqO' //Grupo 9 COL
+global.nnnttt5 = 'https://chat.whatsapp.com/HOCsvLox0Ui7cwzTCeFhPP' //A.T.M.M
 global.paypal = 'https://paypal.me/OficialGD'
 global.asistencia = 'Wa.me/19393844141' //Dudas? escríbeme...
 
