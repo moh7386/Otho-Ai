@@ -34,7 +34,7 @@
 
 
 [`♻️ App Termux`](https://f-droid.org/es/packages/com.termux/)
-### 🌸 INSTALACIÓN AUTOMÁTICA - TERMUX 🌸
+### 🌸 INSTALACIÓN AUTOMÁTICA 🌸
 <a href="https://youtu.be/tzM0f_N8BII">
 <img src="https://img.shields.io/badge/Tutorial-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="Tutorial"> </a>
 
@@ -138,6 +138,7 @@ Set-ExecutionPolicy RemoteSigned
 > Aparecerá un mensaje de advertencia preguntando si deseas cambiar la Política de ejecución. Confirma con "Y" y presiona Enter. Luego ya puede volver a ejecutar el comando `yarn`
 
 ### 💠 [`IDIOMAS DISPONIBLES PARA GATABOTLITE`](https://github.com/GataNina-Li/GataBotLite-MD/blob/f406e0f1bba1ca7cd6ee4ef3208e156135a24dce/config.js#L31) 
+> Multi Lenguaje Dinámico GB: Disponibilidad de usar varios idiomas simultáneamente.
 #### ✨ Español  [`Editar Idioma`](https://github.com/GataNina-Li/GataBotLite-MD/blob/master/lib/idiomas/espanol.js)
 #### ✨ Inglés (English) [`Edit Language`](https://github.com/GataNina-Li/GataBotLite-MD/blob/master/lib/idiomas/ingles.js)
 #### ✨ Portugués (Português) [`Idioma de Edição`](https://github.com/GataNina-Li/GataBotLite-MD/blob/master/lib/idiomas/portugues.js)
