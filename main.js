@@ -1,4 +1,4 @@
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0' 
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '1' 
 import './config.js'
 import {createRequire} from 'module'
 import path, {join} from 'path'
@@ -147,7 +147,7 @@ console.log(`
 ⬇️  ⬇️  ⬇️`.trim())
 const options = ['es', 'en', 'pt', 'ar', 'id', 'Omitir / Skip']
 const formattedOptions = options.map(option => chalk.bold.blueBright(option))
-const selectedOptionIndex = readlineSync.keyInSelect(formattedOptions, `${chalk.bold.magentaBright('Write the number of the option.\nEscriba el número de la opción.')} `, { cancel: false })
+const selectedOptionIndex = readlineSync.keyInSelect(formattedOptions, `${chalk.bold.magentaBright('Write the number of the option.\nEscriba el número de la opción.\n--->')} `, { cancel: false })
 if (selectedOptionIndex >= 0 && selectedOptionIndex <= 4) {
 const selectedLanguage = supportedLanguages[selectedOptionIndex]
 configContent = configContent.replace('global.languageLen = ""', 'global.languageLen = true')
@@ -404,7 +404,7 @@ function purgeSession() {
 let prekey = []
 let directorio = readdirSync("./GataBotSession")
 let filesFolderPreKeys = directorio.filter(file => {
-return file.startsWith('pre-key-') || file.startsWith('session-') || file.startsWith('sender-') || file.startsWith('app-')
+return file.startsWith('pre-key-')
 })
 prekey = [...prekey, ...filesFolderPreKeys]
 filesFolderPreKeys.forEach(files => {
@@ -419,7 +419,7 @@ let SBprekey = [];
 listaDirectorios.forEach(directorio => {
 if (statSync(`./GataJadiBot/${directorio}`).isDirectory()) {
 const DSBPreKeys = readdirSync(`./GataJadiBot/${directorio}`).filter(fileInDir => {
-return fileInDir.startsWith('pre-key-') || fileInDir.startsWith('app-') || fileInDir.startsWith('session-')
+return fileInDir.startsWith('pre-key-')
 })
 SBprekey = [...SBprekey, ...DSBPreKeys];
 DSBPreKeys.forEach(fileInDir => {

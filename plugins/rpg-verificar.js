@@ -1,6 +1,20 @@
-import { createHash } from 'crypto'   
+import { createHash } from 'crypto'  
+import fetch from 'node-fetch'
 let Reg = /\|?(.*)([.|] *?)([0-9]*)$/i 
+
 let handler = async function (m, { conn, text, usedPrefix, command }) {
+let codigosIdiomas = ['es', 'en', 'pt', 'id', 'ar']
+let nombresIdiomas = {
+'es': 'Español',
+'en': 'English',
+'pt': 'Português',
+'id': 'Bahasa Indonesia',
+'ar': 'Arab (عرب)'
+}
+  
+let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
+let pp = await conn.profilePictureUrl(who, 'image').catch(_ => gataImg.getRandom())
+  
 function pickRandom(list) {
 return list[Math.floor(Math.random() * list.length)]
 } 
@@ -21,14 +35,6 @@ if (name.length >= 30) return m.reply(lenguajeGB.smsVerify6())
 user.name = name + 'ͧͧͧͦꙶͣͤ✓ᚲᴳᴮ'.trim()
 user.age = age
 
-const codigosIdiomas = ['es', 'en', 'pt', 'id', 'ar']
-const nombresIdiomas = {
-'es': 'Español',
-'en': 'Inglés',
-'pt': 'Portugués',
-'id': 'Indonesio',
-'ar': 'Árabe'
-}
 let listaIdiomasTexto = ''
 listaIdiomasTexto += '*╭┄┄┄┄┄┄┄┄┄┄┄┄┄┄୭̥⋆*｡*\n' 
 listaIdiomasTexto += '*┆ 🌐 IDIOMA DINÁMICO 🌐*\n' 
@@ -56,7 +62,7 @@ let idioma = ''
 function asignarIdioma(text) { 
 if (!text) return conn.sendMessage(m.chat, { text: `${lenguajeGB['smsAvisoAG']()}*ESCRIBA UN NÚMERO PARA ELEGIR EL IDIOMA, EJEMPLO:*\n\n✓ \`\`\`${usedPrefix}idiomagb 2️⃣\`\`\`\n✓ \`\`\`${usedPrefix}idiomagb 2\`\`\`` }, { quoted: m })	  
 if (text < 1 || (text > 5 && text)) {
-conn.reply(m.chat, `${lenguajeGB['smsAvisoFG']()}*"${text}" NO ES VÁLIDO PARA ELEGIR, RECUERDE USAR EL EMOJI NUMÉRICO O TEXTO NUMÉRICO PARA SELECCIONAR EL IDIOMA, EJEMPLO*\n\n✓ \`\`\`${usedPrefix}idiomagb 2️⃣\`\`\`\n✓ \`\`\`${usedPrefix}idiomagb 2\`\`\``, m) 
+conn.reply(m.chat, `${lenguajeGB['smsAvisoFG']()}*"${text}" NO ES VÁLIDO PARA ELEGIR, RECUERDE USAR EL EMOJI NUMÉRICO O TEXTO NUMÉRICO PARA SELECCIONAR EL IDIOMA, EJEMPLO:*\n\n✓ \`\`\`${usedPrefix}idiomagb 2️⃣\`\`\`\n✓ \`\`\`${usedPrefix}idiomagb 2\`\`\``, m) 
 }
 switch (text) {
 case "1️⃣":
@@ -85,14 +91,20 @@ return conn.reply(m.chat, `${lenguajeGB['smsAvisoAG']()}*RECUERDE USAR EL EMOJI 
 }}
 asignarIdioma(text)
 user.GBLanguage = idioma
-if (!user.GBLanguage) return
-m.reply(`Idioma configurado como: ${user.GBLanguage}`)
+if (!user.GBLanguage) return m.reply(`${lenguajeGB['smsAvisoFG']()}*NO SE LOGRÓ CONFIGURAR EL IDIOMA, INTENTE DE NUEVO POR FAVOR*`)
+if (codigosIdiomas.includes(user.GBLanguage)) {
+nombresIdiomas = nombresIdiomas[user.GBLanguage]
+} else {
+nombresIdiomas = `IDIOMA NO DETECTADO`
+}  
+await m.reply(`${lenguajeGB['smsAvisoIIG']()}*EN CASO QUE QUIERA CAMBIAR O ELIMINAR EL IDIOMA DEBE DE ELIMINAR SU REGISTRO PRIMERO*`)
 user.regTime = + new Date
 user.registered = true
 let sn = createHash('md5').update(m.sender).digest('hex').slice(0, 6)	
-let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : m.fromMe ? conn.user.jid : m.sender
-let pp = await conn.profilePictureUrl(who, 'image').catch(_ => gataMenu.getRandom())
 let caption = `${lenguajeGB.smsVerify7()}
+
+*⎔ IDIOMA* 
+• ${nombresIdiomas}
 
 *⎔ ${lenguajeGB.smsPerfil1()}* 
 • @${tag}
@@ -108,7 +120,7 @@ let caption = `${lenguajeGB.smsVerify7()}
 
 *⎔ ${lenguajeGB.smsPerfil5()}*
 • \`\`\`${sn}\`\`\``.trim()
-await conn.sendFile(m.chat, gataImg.getRandom(), 'gata.jpg', caption, m, false, { mentions: [aa] }) 
+await conn.sendFile(m.chat, pp, 'gata.jpg', caption, m, false, { mentions: [aa] }) 
 await m.reply(lenguajeGB.smsVerify8(usedPrefix)) 
 await m.reply(`${sn}`) 
 }
