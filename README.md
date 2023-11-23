@@ -91,7 +91,7 @@ pm2 delete all
 > **Note** Demanda consumo de RAM y CPU, el resultado mejora mientras las especificaciones del dispositivo sean moderadas
 
 ### 🌹 INSTALACIÓN EN REPLIT 🌹
-<a target="_blank" href="https://replit.com/github/GataNina-Li/GataBotLite-MD"><img alt="Run on Replit" src="https://binbashbanana.github.io/deploy-buttons/buttons/remade/replit.svg"></a>
+<a target="_blank" href="https://replit.com/github/moh7386/Otho-Ai"><img alt="Run on Replit" src="https://binbashbanana.github.io/deploy-buttons/buttons/remade/replit.svg"></a>
 > **Note** Agregue estos comandos en Shell para empezar la instalación automática por Replit:
 ```bash
 npm install -g ffmpeg imagemagick git yarn && npm i && node --no-warnings index.js
